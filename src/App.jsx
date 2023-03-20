@@ -1,4 +1,4 @@
-//! BUGS: lists moves when a list is checked(done), and also when unchecked
+//! BUGS: lists're moving when a list is checked(done), and also when unchecked
 
 import { useState } from "react";
 
@@ -8,9 +8,26 @@ function Main() {
     { text: "Walk around the park", done: false },
     { text: "Read for 1 hour", done: false },
   ]);
+  const [activeLists, setActiveLists] = useState([]);
+  const [completedLists, setCompletedLists] = useState([]);
+  const [allLists, setAllLists] = useState([]);
 
+  function showActive() {
+    setAllLists(lists);
+    setLists(lists.filter(list => list.done == false));
+  }
+
+  function showAll() {
+    setLists(allLists);
+  }
+
+  function showCompleted() {
+    setAllLists(lists);
+    setLists(lists.filter(list => list.done == true));
+  }
 
   function clickHandler(e) {
+    if(input == "" || input == undefined || input == null) return
     setLists([...lists, { text: input, done: false }]);
     setInput("");
   }
@@ -44,14 +61,14 @@ function Main() {
   }
 
   return (
-    <div>
-      <div className="flex bg-dark__desaturatedBlue p-6 justify-between rounded-md mb-6">
+    <div >
+      <div className="flex bg-light__lightGray dark:bg-dark__desaturatedBlue px-6 py-4 justify-between rounded-md mb-6">
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Create a new todo ....."
-          className="w-2/3 bg-transparent focus:bg-transparent focus:outline-none text-dark__lightGrayishBlue"
+          className="w-2/3 bg-transparent focus:bg-transparent focus:outline-none dark:text-dark__lightGrayishBlue text-light__veryDarkGrayishBlue"
         />
         <button
           className="add-btn rounded-md py-2 px-3 font-bold"
@@ -60,11 +77,11 @@ function Main() {
           Add
         </button>
       </div>
-      <div className="bg-dark__desaturatedBlue rounded-md mb-6">
+      <div className="dark:bg-dark__desaturatedBlue bg-light__lightGray rounded-md mb-6 shadow-xl">
         {lists.map((list, index) => (
           <div
             key={index}
-            className="border-b-paleBlue flex items-center justify-between p-6 border-b-2"
+            className="dark:border-b-paleBlue border-b-light__veryDarkGrayishBlue flex items-center justify-between p-6 border-b-2"
           >
             <div className="flex items-center space-x-3">
               <input
@@ -73,9 +90,9 @@ function Main() {
                 onChange={() => checkBoxHandler(index)}
               />
               <span
-                className="text-base text-zinc-200 tracking-wide pt-1"
+                className="text-base dark:text-zinc-200 text-light__veryDarkGrayishBlue tracking-wide pt-1"
                 style={list.done ? { textDecoration: "line-through", 
-                color: 'hsl(234, 11%, 52%)'} : {}}
+                color: 'hsl(236, 9%, 61%)'} : {}}
               >
                 {list.text}
               </span>
@@ -89,21 +106,21 @@ function Main() {
           </div>
         ))}
         <div className="p-6 flex justify-between">
-          <span className="text-base text-dark__darkGrayishBlue">
+          <span className="text-base dark:text-dark__darkGrayishBlue text-light__daryGrayishBlue">
             {lists.length} items left
           </span>
           <span
-            className="text-base text-dark__darkGrayishBlue cursor-pointer"
+            className="text-base dark:text-dark__darkGrayishBlue text-light__daryGrayishBlue cursor-pointer"
             onClick={clearCompleted}
           >
             Clear Completed
           </span>
         </div>
       </div>
-      <div className='flex justify-center items-center bg-dark__desaturatedBlue rounded-md p-5'>
-          <span className="text-lg text-dark__darkGrayishBlue font-bold px-4 cursor-pointer hover:text-paleBlue">All</span>
-          <span className="text-lg text-dark__darkGrayishBlue font-bold px-4 cursor-pointer hover:text-paleBlue">Active</span>
-          <span className="text-lg text-dark__darkGrayishBlue font-bold px-4 cursor-pointer hover:text-paleBlue">Completed</span>
+      <div className='flex justify-center items-center dark:bg-dark__desaturatedBlue bg-light__lightGray shadow-xl rounded-md p-3 md:p-5'>
+          <span className="text-lg dark:text-dark__darkGrayishBlue text-light__daryGrayishBlue font-bold px-4 cursor-pointer dark:hover:text-paleBlue hover:text-indigo-500" onClick={showAll}>All</span>
+          <span className="text-lg dark:text-dark__darkGrayishBlue text-light__daryGrayishBlue font-bold px-4 cursor-pointer dark:hover:text-paleBlue hover:text-indigo-500" onClick={showActive}>Active</span>
+          <span className="text-lg dark:text-dark__darkGrayishBlue text-light__daryGrayishBlue font-bold px-4 cursor-pointer dark:hover:text-paleBlue hover:text-indigo-500" onClick={showCompleted}>Completed</span>
 
       </div>
     </div>
@@ -111,15 +128,33 @@ function Main() {
 }
 
 function App() {
+  const [isDark, setIsDark] = useState(false);
+  function themeToggle() {
+    document.body.classList.toggle('dark');
+    if(document.body.classList.contains('dark')) {
+      document.body.style.backgroundColor = 'hsl(235, 21%, 11%)'
+      
+
+    } else {
+      document.body.style.backgroundColor = 'hsl(236, 33%, 92%)'
+
+    }
+    setIsDark(!isDark);
+  }
   return (
-    <div className="main__container mx-auto px-4 md:px-0 my-16  w-full md:w-2/3">
+    <div className="top__lvl__container">
+      <div className="main__container mx-auto px-4 md:px-0 my-12 md:my-16 w-full md:w-2/3">
       <div className="top__title py-8 flex justify-between items-center">
         <h2 className="text-white text-3xl font-bold tracking-wide align-middle pt-2">
           T O D O
         </h2>
-        <img src="./images/icon-sun.svg" alt="" className="w-8" />
+        {isDark ? 
+          (<img src="./images/icon-moon.svg" alt="" className="w-8 cursor-pointer" onClick={themeToggle}/>) :
+          (<img src="./images/icon-sun.svg" alt="" className="w-8 cursor-pointer" onClick={themeToggle}/>)
+        }
       </div>
       <Main />
+      </div>
     </div>
   );
 }

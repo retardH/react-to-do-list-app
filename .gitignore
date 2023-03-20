@@ -26,3 +26,4 @@ dist-ssr
 design/
 style-guide.md
 index.css
+.gitignore
