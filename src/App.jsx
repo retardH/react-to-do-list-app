@@ -1,4 +1,4 @@
-//! BUGS: lists're moving when a list is checked(done), and also when unchecked
+//! REFACTOR THE CODE
 
 import { useState } from "react";
 
@@ -8,8 +8,7 @@ function Main() {
     { text: "Walk around the park", done: false },
     { text: "Read for 1 hour", done: false },
   ]);
-  const [activeLists, setActiveLists] = useState([]);
-  const [completedLists, setCompletedLists] = useState([]);
+
   const [allLists, setAllLists] = useState([]);
 
   function showActive() {
@@ -33,17 +32,11 @@ function Main() {
   }
 
   function checkBoxHandler(idx) {
-    const newArr = lists.filter((list, index) => {
-      return index != idx;
-    });
-    const doneObj = lists[idx];
-    if (doneObj.done) {
-      doneObj.done = false;
-      setLists([...newArr, doneObj]);
-    } else {
-      doneObj.done = true;
-      setLists([doneObj, ...newArr]);
-    }
+    setLists(prevLists => {
+      return prevLists.map((list, index)=> {
+        return idx === index ? {...list, done: !list.done} : list;
+      })
+    })
   }
 
   function clearCompleted() {
