@@ -1,4 +1,5 @@
 import React from "react";
+import {CgPlayListAdd} from 'react-icons/cg'
 
 export default function Input({input, setInput, clickHandler}) {
 
@@ -8,15 +9,16 @@ export default function Input({input, setInput, clickHandler}) {
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
+          onKeyUp={(e) => {
+            if(e.key === 'Enter') {
+              clickHandler();
+            }
+          }}
           placeholder="Create a new todo ....."
-          className="w-2/3 bg-transparent focus:bg-transparent focus:outline-none dark:text-dark__lightGrayishBlue text-light__veryDarkGrayishBlue"
+          className="w-2/3 bg-transparent focus:bg-transparent focus:outline-none dark:text-dark__lightGrayishBlue text-light__veryDarkGrayishBlue text-lg flex-1"
         />
-        <button
-          className="add-btn rounded-md py-2 px-3 font-bold"
-          onClick={clickHandler}
-        >
-          Add
-        </button>
+          <CgPlayListAdd onClick={clickHandler} className="dark:text-light__lightGray text-3xl text-dark__desaturatedBlue cursor-pointer"/>
+        
       </div>
     )
-}
+} 

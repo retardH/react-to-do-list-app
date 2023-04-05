@@ -4,11 +4,7 @@ import List from "./List";
 
 export default function Container() {
   const [input, setInput] = useState("");
-  const [lists, setLists] = useState([
-    { text: "Walk around the park", done: false },
-    { text: "Read for 1 hour", done: false },
-  ]);
-
+  const [lists, setLists] = useState([]);
   const [allLists, setAllLists] = useState([]);
 
   function showActive() {
@@ -63,21 +59,21 @@ export default function Container() {
         checkBoxHandler={checkBoxHandler}
       />
 
-      <div className="flex justify-center items-center dark:bg-dark__desaturatedBlue bg-light__lightGray shadow-xl rounded-md p-3 md:p-5">
+      <div className="flex justify-center items-center dark:bg-dark__desaturatedBlue bg-light__lightGray shadow-lg rounded-md p-3 md:p-5">
         <span
-          className="text-lg dark:text-dark__darkGrayishBlue text-light__daryGrayishBlue font-bold px-4 cursor-pointer dark:hover:text-paleBlue hover:text-indigo-500"
+          className="text-lg dark:text-dark__darkGrayishBlue text-light__daryGrayishBlue font-bold px-4 cursor-pointer dark:hover:text-slate-50 hover:text-zinc-900"
           onClick={showAll}
         >
           All
         </span>
         <span
-          className="text-lg dark:text-dark__darkGrayishBlue text-light__daryGrayishBlue font-bold px-4 cursor-pointer dark:hover:text-paleBlue hover:text-indigo-500"
+          className="text-lg dark:text-dark__darkGrayishBlue text-light__daryGrayishBlue font-bold px-4 cursor-pointer dark:hover:text-slate-50 hover:text-zinc-900"
           onClick={showActive}
         >
           Active
         </span>
         <span
-          className="text-lg dark:text-dark__darkGrayishBlue text-light__daryGrayishBlue font-bold px-4 cursor-pointer dark:hover:text-paleBlue hover:text-indigo-500"
+          className="text-lg dark:text-dark__darkGrayishBlue text-light__daryGrayishBlue font-bold px-4 cursor-pointer dark:hover:text-slate-50 hover:text-zinc-900"
           onClick={showCompleted}
         >
           Completed

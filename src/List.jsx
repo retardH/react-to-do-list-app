@@ -7,7 +7,7 @@ export default function List({
   clearCompleted,
 }) {
   return (
-    <div className="dark:bg-dark__desaturatedBlue bg-light__lightGray rounded-md mb-6 shadow-xl">
+    <div className="dark:bg-dark__desaturatedBlue bg-light__lightGray rounded-md mb-6 shadow-md">
       {lists.map((list, index) => (
         <div
           key={index}

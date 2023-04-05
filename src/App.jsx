@@ -10,7 +10,7 @@ function App() {
     if (document.body.classList.contains("dark")) {
       document.body.style.backgroundColor = "hsl(235, 21%, 11%)";
     } else {
-      document.body.style.backgroundColor = "hsl(236, 33%, 92%)";
+      document.body.style.backgroundColor = "#e2e8f0";
     }
     setIsDark(!isDark);
   }
