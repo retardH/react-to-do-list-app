@@ -1,11 +1,6 @@
 import React from "react";
 
-export default function List({
-  lists,
-  checkBoxHandler,
-  removeIndividualList,
-  clearCompleted,
-}) {
+export default function List({lists,dispatch}) {
   return (
     <div className="dark:bg-dark__desaturatedBlue bg-light__lightGray rounded-md mb-6 shadow-md">
       {lists.map((list, index) => (
@@ -17,7 +12,16 @@ export default function List({
             <input
               type="checkbox"
               checked={list.done}
-              onChange={() => checkBoxHandler(index)}
+              onChange={(e) => {
+                dispatch({
+                  type: 'check',
+                  id: index,
+                  list: {
+                    ...list,
+                    done: e.target.checked,
+                  }
+                })
+              }}
             />
             <span
               className="text-base dark:text-zinc-200 text-light__veryDarkGrayishBlue tracking-wide pt-1"
@@ -37,7 +41,12 @@ export default function List({
             src="./images/icon-cross.svg"
             alt=""
             className="w-4 cursor-pointer"
-            onClick={() => removeIndividualList(index)}
+            onClick={() => {
+              dispatch({
+                type: 'delete',
+                id: index,
+              })
+            }}
           />
         </div>
       ))}
@@ -47,7 +56,11 @@ export default function List({
         </span>
         <span
           className="text-base dark:text-dark__darkGrayishBlue text-light__daryGrayishBlue cursor-pointer"
-          onClick={clearCompleted}
+          onClick={() => {
+            dispatch({
+              type: 'clear-all'
+            })
+          }}
         >
           Clear Completed
         </span>
