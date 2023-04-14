@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ThemeContext } from "./Context&ReducerProvider";
 
-export default function Title({themeToggle, isDark}) {
+export default function Title() {
+  const {themeToggle, isDark} = useContext(ThemeContext);
   return (
     <div className="top__title py-8 flex justify-between items-center">
       <h2 className="text-white text-3xl font-bold tracking-wide align-middle pt-2">

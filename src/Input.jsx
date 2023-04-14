@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import {CgPlayListAdd} from 'react-icons/cg'
+import { AllContext } from "./Context&ReducerProvider";
 
-export default function Input({dispatch}) {
+export default function Input({}) {
 
     const [text, setText] = useState('');
+    const {dispatch} = useContext(AllContext);
     return (
         <div className="flex bg-light__lightGray dark:bg-dark__desaturatedBlue px-6 py-4 justify-between rounded-md mb-6">
         <input

@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AllContext } from "./Context&ReducerProvider";
 
-export default function List({lists,dispatch}) {
+export default function List() {
+  const {lists, dispatch} = useContext(AllContext);
   return (
     <div className="dark:bg-dark__desaturatedBlue bg-light__lightGray rounded-md mb-6 shadow-md">
       {lists.map((list, index) => (

@@ -1,4 +1,8 @@
-const Footer = ({ dispatch, lists, allLists, setAllLists }) => {
+import { useContext } from "react";
+import { AllContext } from "./Context&ReducerProvider";
+
+const Footer = () => {
+  const {dispatch, lists, allLists, setAllLists} = useContext(AllContext);
   return (
     <div className="flex justify-center items-center dark:bg-dark__desaturatedBlue bg-light__lightGray shadow-lg rounded-md p-3 md:p-5">
       <span
